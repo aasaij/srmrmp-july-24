@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Demo</title>
+    <style>
+        table,tr, td, th, caption{
+            border-width:1px;
+            border-style:solid;
+            border-collapse: collapse;
+        }
+        caption{
+            background-color: darkgray;
+        }
+        thead {
+            background-color: lightgray;
+        }
+        tr:hover{
+            background-color: darkgray;
+        }
+
+        /* tr:nth-child(even){
+            background-color: burlywood;
+        } */
+        /* tr:nth-of-type(4){
+            background-color: aqua;
+        } */
+        /* td:nth-child(even){
+            background-color: burlywood;
+        } */
+        /* td:nth-of-type(4){
+            background-color: aqua;
+        } */
+    </style>
+</head>
+<body>
+    <table>
+        <caption>Student <span style="color:yellow">Mark List</span></caption>
+        <thead>
+            <tr>
+                <th rowspan="2">Roll Number</th>
+                <th rowspan="2">Student Name</th>
+                <th colspan="2">CGPA</th>
+                <th rowspan="2">Gender</th>
+            </tr>
+            <tr style="background-color: lightgray;"">
+                <th>Internal</th>
+                <th>External</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>41</td>
+                <td>Evanglin</td>
+                <td>2.5</td>
+                <td>7.5</td>
+                <td>Female</td>
+            </tr>
+            <tr>
+                <td>302</td>
+                <td>Hari</td>
+                <td>2.5</td>
+                <td>7.5</td>
+                <td>Male</td>
+            </tr>
+            <tr>
+                <td>68</td>
+                <td>Karishma</td>
+                <td>2.5</td>
+             <td>7.5</td>
+             <td>Female</td>
+            </tr>
+            <tr>
+                <td>65</td>
+                <td>Madhavan</td>
+                <td>2.5</td>
+             <td>7.5</td>
+             <td>Male</td>
+            </tr>
+            <tr>
+                <td>64</td>
+                <td>Ramesh</td>
+                <td>2.5</td>
+             <td>7.5</td>
+             <td>Male</td>
+            </tr>
+            <tr>
+                <td>78</td>
+                <td>Nayanthara</td>
+                <td>2.5</td>
+             <td>7.5</td>
+             <td>Female</td>
+            </tr>
+            <tr>
+                <td>88</td>
+                <td>Sreeleela</td>
+                <td>2.5</td>
+             <td>7.5</td>
+             <td>Female</td>
+            </tr>
+        </tbody>
+    </table>    
+</body>
+</html>

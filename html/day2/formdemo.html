@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms Demo</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        input[type="text"],
+        input[type="number"], 
+        input[type="date"],
+        input[type="email"], textarea{
+            width: 100%;
+            padding:5px;
+            outline: none;
+            background-color:lightgrey;
+            opacity: 0.55;
+        }
+        input:focus, textarea:focus{
+            /* background-color: darkgray; */
+            opacity: 1.0;
+        }
+        fieldset{
+            padding: 10px;
+        }
+        input[type="radio"]{
+            margin: 5px;
+        }
+        button{
+            width:100%;
+            padding:5px;
+        }
+        .submit{
+            background-color: green;
+            color:white;
+            opacity: 0.75;
+        }
+        .cancel{
+            background-color: blue;
+            color:white;
+            opacity: 0.75;
+        }
+        button:hover{
+            opacity: 1.0;
+        }
+        h1{
+            text-align: center;
+            background-color: blue;
+            color:white;
+        }
+        body{
+            background-color: azure;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>
+        Registration Form
+    </h1>
+   <form action="">
+        <label for="">First Name</label>
+        <input type="text" placeholder="Enter your name" required/>
+        <label for="">Last Name</label>
+        <input type="text" placeholder="Enter your last name"/>
+        <label for="">Address</label>
+        <textarea rows="5">
+            
+        </textarea>
+        <label for="">Email</label>
+        <input type="email" placeholder="Enter your email id" required/>
+        <label for="">Contact Number</label>
+        <input type="number" placeholder="Enter your contact number" required>
+        <fieldset>
+            <legend>Gender</legend>
+            <input type="radio" name="gender">Male
+            <input type="radio" name="gender" checked>Female
+        </fieldset>
+        <label for="">Date of Birth</label>
+        <input type="date">
+        <label for="">CGPA</label>
+        <input type="text">
+        <button type="submit" class="submit">Submit</button>
+        <button type="reset" class="cancel">Cancel</button>
+        
+   </form> 
+</body>
+</html>
+
+<!-- Attendance Link : https://bit.ly/MM-020724
+Trainer : Tambi
+Session FN/AN -->
+
+
