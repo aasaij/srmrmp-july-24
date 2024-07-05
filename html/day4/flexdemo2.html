@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Demo</title>
+    <style>
+        .flex-container{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            background-color: yellowgreen;
+            /* justify-content: center; */
+            min-height: 30vh;
+            /* align-items: center; */
+        }
+        .one{
+            background-color: black;
+            color: white;
+            width: 50px; 
+            height: 50px;           
+            margin: 5px;
+            text-align: center;
+            /* flex-grow: 2; */
+            flex-basis: 100%;
+            /* justify-self: flex-start;
+            align-self: flex-start; */
+        }
+        .two{
+            background-color: black;
+            color: white;
+            width: 50px; 
+            height: 50px;           
+            margin: 5px;
+            flex-basis: 25%;
+            /* flex-grow: 1; */
+            /* align-self: center; */
+        }
+        .three{
+            background-color: black;
+            color: white;
+            width: 50px; 
+            height: 50px;           
+            margin: 5px;
+            flex-grow: 1;
+            /* justify-self: flex-end;
+            align-self: flex-end; */
+        }
+        .four{
+            background-color: black;
+            color: white;
+            width: 50px; 
+            height: 50px;           
+            margin: 5px;
+            /* flex-grow: 1; */
+            /* justify-self: flex-end;
+            align-self: flex-end; */
+        }
+        .five{
+            background-color: black;
+            color: white;
+            width: 50px; 
+            height: 50px;           
+            margin: 5px;
+            /* flex-grow: 1;          */
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+        <h1 class="one">1</h1>
+        <h1 class="two">2</h1>
+        <h1 class="three">3</h1>
+        <h1 class="four">4</h1>
+        <h1 class="five">5</h1>
+    </div>
+</body>
+</html>

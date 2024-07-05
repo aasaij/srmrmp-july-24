@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Demo</title>
+    <style>
+        .container{
+            display: grid;
+            width: 900px;
+            background-color: #eee;
+            grid-template-columns: repeat(6, 1fr);      
+            gap: 10px;
+            grid-gap: 10px;
+            grid-auto-rows: minmax(200px, auto);
+            /* grid-auto-columns: 100px; */
+
+        }
+        .container > h1 {
+            background-color: #ccc;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .container > h1:nth-child(1){
+            /* grid-column: 1 / 5; */
+            grid-column: 1 / span 4; 
+        }
+        .container > h1:nth-child(2){
+            /* grid-column: 1 / 5; */
+            grid-column: span 2; 
+        }
+        .container > h1:nth-child(3){
+            grid-column: 2 / span 4;
+            /* min-height: 400px; */
+        }
+        .container > h1:nth-child(4){
+            grid-column: span 2;
+        }
+        .container > h1:nth-child(5){
+            grid-column: span 4;
+        }
+        .container > h1:nth-child(6){
+            grid-column: 1 / span 6;
+        }
+        .container > h1:nth-child(7){
+            grid-column: 1 / span 3;
+        }
+        .container > h1:nth-child(8){
+            grid-column:span 3;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Grid Layout Demo</h1>
+    <div class="container">
+        <h1>One</h1>
+        <h1>Two</h1>
+        <h1>Three</h1>
+        <h1>Four</h1>
+        <h1>Five</h1>
+        <h1>Six</h1>
+        <h1>Seven</h1>
+        <h1>Eight</h1>
+    </div>
+</body>
+</html>
+<!-- Assessment : student.ccc.training
+Attendance : https://bit.ly/RR-040724
+Trainer : Tambi
+Session : FN -->
+
