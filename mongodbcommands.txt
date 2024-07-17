@@ -151,29 +151,6 @@ srmrmp> db.employees.find()
     contact: [ 1234, 4567, 75434 ]
   }
 ]
-srmrmp> db.employees.
-... insertMany([
-... {
-... _id:"105", firstName:"Junya", lastName:"G", gender="Female", salary:1500000
-... },
-... {
-... _id:"106", firstName:"Murali Mohan", lastName:"R", gender="Male", salary:1400000
-... }
-... ]
-... )
-...
-... ;
-Uncaught:
-SyntaxError: Invalid shorthand property initializer. (4:50)
-
-  2 | insertMany([
-  3 | {
-> 4 | _id:"105", firstName:"Junya", lastName:"G", gender="Female", salary:1500000
-    |                                                   ^
-  5 | },
-  6 | {
-  7 | _id:"106", firstName:"Murali Mohan", lastName:"R", gender="Male", salary:1400000
-
 srmrmp> db.employees. insertMany([ { _id:"105", firstName:"Junya", lastName:"G", gender:"Female", salary:1500000 }, { _id:"106", firstName:"Murali Mohan", lastName:"R", gender:"Male", salary:1400000 } ] ) ;
 { acknowledged: true, insertedIds: { '0': '105', '1': '106' } }
 srmrmp> db.employees.find()
@@ -558,14 +535,6 @@ srmrmp> db.employees.find({"address.city":"Bangalore"})
     contact: [ 1234, 4567, 75434 ]
   }
 ]
-srmrmp> db.employees.find({address.city:"Bangalore"})
-Uncaught:
-SyntaxError: Unexpected token, expected "," (1:26)
-
-> 1 | db.employees.find({address.city:"Bangalore"})
-    |                           ^
-  2 |
-
 srmrmp> db.employees.find({salary : {$eq:1300000}})
 [
   {
@@ -731,18 +700,6 @@ srmrmp> db.employees.find({$and: [{gender:"Male"},{salary:{$lte:1300000}}]})
     salary: 1200000
   }
 ]
-srmrmp> db.employees.find({$not:{{$and: [{gender:"Male"},{salary:{$lte:1300000}}]}}})
-Uncaught:
-SyntaxError: Unexpected token (1:25)
-
-> 1 | db.employees.find({$not:{{$and: [{gender:"Male"},{salary:{$lte:1300000}}]}}})
-    |                          ^
-  2 |
-
-srmrmp> db.employees.find({$not:{$and: [{gender:"Male"},{salary:{$lte:1300000}}]}})
-MongoServerError[BadValue]: unknown top level operator: $not. If you are trying to negate an entire expression, use $nor.
-srmrmp> db.employees.find({$nor:{$and: [{gender:"Male"},{salary:{$lte:1300000}}]}})
-MongoServerError[BadValue]: $nor must be an array
 srmrmp> db.employees.find({$or:[{gender:"Female"}, {salary:{$gte:1400000}}]})
 [
   {
@@ -784,8 +741,6 @@ srmrmp> db.employees.find({$or:[{gender:"Female"}, {salary:{$gte:1400000}}]})
     salary: 1400000
   }
 ]
-srmrmp> db.employees.find({$not:{$or:[{gender:"Female"}, {salary:{$gte:1400000}}]}})
-MongoServerError[BadValue]: unknown top level operator: $not. If you are trying to negate an entire expression, use $nor.
 srmrmp> db.employees.find({$nor:[{gender:"Female"}, {salary:{$gte:1400000}}]})
 [
   {
@@ -1000,19 +955,6 @@ srmrmp> db.employees.find({firstName:{$type:'string'}})
     salary: 1400000
   }
 ]
-srmrmp> db.employees.insertOne({
-... _id:"107",
-... firstName:"Gayathri",
-... lastName : "Choudhary"
-... gender:"Female",
-Uncaught:
-SyntaxError: Unexpected token, expected "," (5:0)
-
-  3 | firstName:"Gayathri",
-  4 | lastName : "Choudhary"
-> 5 | gender:"Female",
-    | ^
-  6 |
 
 srmrmp> db.employees.insertOne({ _id:"107", firstName:"Gayathri", lastName : "Choudhary", gender:"Female",
 ... salary:1700000, contact:1234567})
@@ -1049,8 +991,6 @@ srmrmp> db.employees.find({contact:{$type:"array"}})
     contact: [ 1234, 4567, 75434 ]
   }
 ]
-srmrmp> db.employees.find({$not:{contact:{$type:"array"}}})
-MongoServerError[BadValue]: unknown top level operator: $not. If you are trying to negate an entire expression, use $nor.
 srmrmp> db.employees.find({$nor:[{contact:{$type:"array"}}]})
 [
   {
@@ -1165,20 +1105,6 @@ srmrmp> db.employees.find()
     contact: 1234567
   }
 ]
-srmrmp> db.employees.updateOne({},{})
-MongoInvalidArgumentError: Update document requires atomic operators
-srmrmp> db.employees.updateOne({},{}
-...
-srmrmp> db.employees.updateOne({},
-... {
-... $set:{
-... salary: salary - (salary * 10 / 100)
-... }
-... }
-... )
-ReferenceError: salary is not defined
-srmrmp> db.employees.updateOne({}, { $set: { salary: $salary - $salary * 10 / 100 } } )
-ReferenceError: $salary is not defined
 srmrmp> db.employees.updateOne({}, { $set: { salary: "salary" - "salary" * 10 / 100 } } )
 {
   acknowledged: true,
@@ -1195,16 +1121,6 @@ srmrmp> db.employees.findOne()
   gender: 'Male',
   salary: NaN
 }
-srmrmp> db.employees.updateOne({}, { $set: { salary: {salary:} - {salary:} * 10 / 100 } } )
-Uncaught:
-SyntaxError: Unexpected token (1:53)
-
-> 1 | db.employees.updateOne({}, { $set: { salary: {salary:} - {salary:} * 10 / 100 } } )
-    |                                                      ^
-  2 |
-
-srmrmp> db.employees.updateOne({}, { $set: { salary: {salary} - {salary} * 10 / 100 } } )
-ReferenceError: salary is not defined
 srmrmp> db.employees.updateOne({}, { $set: { salary: "$salary" - "$salary" * 10 / 100 } } )
 {
   acknowledged: true,
@@ -1343,12 +1259,6 @@ srmrmp> db.employees.updateMany({address:{$exists:false}}, {$set:{address:{stree
 }
 srmrmp> db.employees.find({address:{$exists:false}})
 
-srmrmp> db.employees.updateOne({}, {salary:{$mul:0.8}})
-MongoInvalidArgumentError: Update document requires atomic operators
-srmrmp> db.employees.updateOne({firstName:"Naveen"}, {salary:{$mul:0.8}})
-MongoInvalidArgumentError: Update document requires atomic operators
-srmrmp> db.employees.updateOne({_id:"102"}, {salary:{$mul:0.8}})
-MongoInvalidArgumentError: Update document requires atomic operators
 srmrmp> db.employees.updateOne({_id:"102"}, {$mul:{salary:0.8}})
 {
   acknowledged: true,
@@ -1422,14 +1332,6 @@ srmrmp> db.employees.find({}, {_id:0, firstName:1, salary:1})
   { firstName: 'Murali Mohan', salary: 1170000 },
   { firstName: 'Gayathri', salary: 1410000 }
 ]
-srmrmp> db.employees.updateMany({}, {$min:{salary:1200000})
-Uncaught:
-SyntaxError: Unexpected token, expected "," (1:50)
-
-> 1 | db.employees.updateMany({}, {$min:{salary:1200000})
-    |                                                   ^
-  2 |
-
 srmrmp> db.employees.updateMany({}, {$min:{salary:1200000}})
 {
   acknowledged: true,
@@ -1609,25 +1511,10 @@ srmrmp> db.employees.find()
   {
     _id: '106',
 
-srmrmp> db.employees.aggregate(
-... [
-... {},
-... {
-... $group:{_id:null, totalSalary:{$sum:"$salary"}}
-... }
-... ]
-... )
-MongoServerError[Location40323]: A pipeline stage specification object must contain exactly one field.
-srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $sum: "$salary" } } }] )
-[ { _id: null, totalSalary: 9800000 } ]
-srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $avg: "$salary" } } }] )
-[ { _id: null, totalSalary: 1633333.3333333333 } ]
 srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $max: "$salary" } } }] )
 [ { _id: null, totalSalary: 1900000 } ]
 srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $min: "$salary" } } }] )
 [ { _id: null, totalSalary: 1500000 } ]
-srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $count: "$salary" } } }] )
-MongoServerError[TypeMismatch]: $count takes no arguments, i.e. $count:{}
 srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $count: {} } } }] )
 [ { _id: null, totalSalary: 6 } ]
 srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalEmployees: { $count: {} } } }] )
@@ -1639,8 +1526,6 @@ srmrmp> db.employees.aggregate([{$group:{_id:"$gender", totalSalary:{$sum:"$sala
 ]
 srmrmp> db.employees.aggregate([{$group:{_id:"$gender",genderCount:{$count:{}}}}])
 [ { _id: 'Female', genderCount: 4 }, { _id: 'Male', genderCount: 2 } ]
-srmrmp> db.employees.aggregate([{$group:{$_id:"$salary", salaryCount:{$count:{}}}}])
-MongoServerError[Location40234]: The field '$_id' must be an accumulator object
 srmrmp> db.employees.aggregate([{$group:{_id:"$salary", salaryCount:{$count:{}}}}])
 [ { _id: 1900000, salaryCount: 2 }, { _id: 1500000, salaryCount: 4 } ]
 srmrmp> db.employees.find();
