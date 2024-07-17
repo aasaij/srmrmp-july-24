@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //JavaScript Object
+        const person = {
+            //Properties of this object
+            firstName : "Deepan",
+            lastName : 'A',
+            gender : 'M',
+            salary : 200000,
+            //Nested object
+            address : {
+                street: 'MG Road',
+                city : 'Chennai',
+                zipcode : 600123,
+                getAddress : function(){
+                    return this.street +"," + this.city +"-" + this.zipcode;
+                }
+            },
+            //Methods or behaviour of this object
+            fullName : function() {
+                return this.firstName.toUpperCase() + " " + this.lastName.toUpperCase();
+            },
+            getGender : function(){
+                return this.gender==="M"?"Male":"Female";
+            }
+        }
+        document.write("<h1>Employee name : <span style='color:blue'>", person.fullName(), "</span></h1><br/>");
+        document.write("<h1>Gender : <span style='color:blue'>", person.getGender(), "</span></h1><br/>");
+        document.write("<h1>Salary : <span style='color:blue'>", person.salary, "</span></h1><br/>");
+        document.write("<h1>Address : <span style='color:blue'>", person.address.getAddress(), "</span></h1><br/>");
+
+    </script>
+</body>
+</html>

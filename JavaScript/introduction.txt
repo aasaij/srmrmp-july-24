@@ -1,0 +1,73 @@
+Arithmetic
++	Addition
+-	Subtraction
+*	Multiplication
+/	Division
+%	Modulus
+**	Exponentiation
+
+Relational
+>	Greater than
+>=	Greater than or equal to
+<	Less than
+<=	Less than or equal to
+==	equal to 
+!=	not equal to
+===	equal to (both value & data type)
+!==	not equal to (both value & data type)
+
+Logical 
+&&
+||
+!
+
+Increment/Decrement
+++/--
+a++ / ++a
+a-- / --a
+
+Ternary Operator or conditional  --> not in python
+	?:
+Syntax:
+	<exprL>?<true_statement>:<false_statement>
+
+Assignment
+	simple
+		=
+	compound or shorthand
+		+=, -=, *=, /=, %=, **=
+Bitwise
+	&  AND
+	|  OR
+	^  XOR
+	~  NOT
+	>> Right shift
+	>>> Right shift with zero fill
+	<<  left shift
+Special
+	instanceof
+	typeof
+
+JavaScript has 8 Datatypes
+String
+Number
+Bigint
+Boolean
+Undefined
+Null
+Symbol
+Object
+Conditional statements
+
+if statement
+	if (condition) {
+  //  block of code to be executed if the condition is true
+}
+[else{
+  //  block of code to be executed if the condition is false
+
+}]
+
+
+
+

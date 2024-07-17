@@ -1,0 +1,82 @@
+{
+  "employees": [
+    {
+      "name": "Naveen",
+      "salary": 1100000,
+      "gender": "male",
+      "address": {
+        "street": "GST Road",
+        "city": "Chennai"
+      },
+      "phone": [121345, 3565, 67878],
+      "staus": true,
+      "id": "002"
+    },
+    {
+      "id": "003",
+      "name": "Junya",
+      "salary": 1200000,
+      "gender": "female",
+      "staus": true,
+      "address": {
+        "street": "West Car Street",
+        "city": "Madurai"
+      }
+    },
+    {
+      "id": "004",
+      "name": "Gayathry",
+      "salary": 1200000,
+      "gender": "female",
+      "address": {
+        "street": "GST Road",
+        "city": "Chennai"
+      },
+      "phone": [121345, 3565, 67878],
+      "staus": true
+    },
+    {
+      "id": "005",
+      "name": "Amritha P",
+      "salary": 1500000,
+      "gender": "female",
+      "staus": true,
+      "address": {
+        "street": "East Car Street",
+        "city": "Madurai"
+      }
+    },
+    {
+      "0": {
+        "id": "002",
+        "name": "Amritha",
+        "salary": 1100000,
+        "gender": "female",
+        "staus": true
+      },
+      "id": "f313"
+    },
+    {
+      "0": {
+        "id": "006",
+        "name": "anil",
+        "salary": 3100000,
+        "gender": "male",
+        "staus": true
+      },
+      "id": "066a"
+    },
+    {
+      "id": "002",
+      "name": "qwerty",
+      "salary": 1100000,
+      "gender": "male",
+      "address": {
+        "street": "GST Road",
+        "city": "Chennai"
+      },
+      "phone": [121345, 3565, 67878],
+      "staus": true
+    }
+  ]
+}
