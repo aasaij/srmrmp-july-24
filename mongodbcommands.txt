@@ -1,0 +1,1733 @@
+Microsoft Windows [Version 10.0.22621.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\ASAITHAMBI J>mongosh
+Current Mongosh Log ID: 66973b91af68937114cdcdf5
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.6
+Using MongoDB:          7.0.9
+Using Mongosh:          2.2.6
+mongosh 2.2.12 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-07-17T08:07:33.820+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin       40.00 KiB
+cms         72.00 KiB
+config     108.00 KiB
+crud        72.00 KiB
+local       80.00 KiB
+mydb        80.00 KiB
+sample      56.00 KiB
+srmap       80.00 KiB
+srmistrmp   72.00 KiB
+testing     72.00 KiB
+test> use srmrmp
+switched to db srmrmp
+srmrmp> show collections
+
+srmrmp> db.createCollection("employees")
+{ ok: 1 }
+srmrmp> show collections
+employees
+srmrmp> show dbs
+admin      40.00 KiB
+cms        72.00 KiB
+config     72.00 KiB
+crud       72.00 KiB
+local      80.00 KiB
+mydb       80.00 KiB
+sample     56.00 KiB
+srmap      80.00 KiB
+srmistrmp  72.00 KiB
+srmrmp      8.00 KiB
+testing    72.00 KiB
+srmrmp> db.student.insertOne({firstName:"Naveen"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('66973db0af68937114cdcdf6')
+}
+srmrmp> show collections
+employees
+student
+srmrmp> db.employees.insertOne({firstName:"Naveen", lastName:"T", gender:"Male", salary:1200000})
+{
+  acknowledged: true,
+  insertedId: ObjectId('66973ee4af68937114cdcdf7')
+}
+srmrmp> db.employees.find()
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  }
+]
+srmrmp> db.employees.insertOne({_id:"102",firstName:"Karishma", lastName:"P", gender:"Female", salary:1300000})
+{ acknowledged: true, insertedId: '102' }
+srmrmp> db.employees.find()
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  }
+]
+srmrmp> db.employees.insertOne({_id:"103",firstName:"Keerthana", lastName:"U", gender:"Female", salary:1300000, address:{street:"GST Road", city:"Chennai"}})
+{ acknowledged: true, insertedId: '103' }
+srmrmp> db.employees.find()
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  }
+]
+srmrmp> db.employees.insertOne({_id:"104",firstName:"Lokesh", lastName:"M", gender:"Male", salary:1400000, address:{street:"MG Road", city:"Bangalore"},contact:[1234,4567,75434]})
+{ acknowledged: true, insertedId: '104' }
+srmrmp> db.employees.find()
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  }
+]
+srmrmp> db.employees.
+... insertMany([
+... {
+... _id:"105", firstName:"Junya", lastName:"G", gender="Female", salary:1500000
+... },
+... {
+... _id:"106", firstName:"Murali Mohan", lastName:"R", gender="Male", salary:1400000
+... }
+... ]
+... )
+...
+... ;
+Uncaught:
+SyntaxError: Invalid shorthand property initializer. (4:50)
+
+  2 | insertMany([
+  3 | {
+> 4 | _id:"105", firstName:"Junya", lastName:"G", gender="Female", salary:1500000
+    |                                                   ^
+  5 | },
+  6 | {
+  7 | _id:"106", firstName:"Murali Mohan", lastName:"R", gender="Male", salary:1400000
+
+srmrmp> db.employees. insertMany([ { _id:"105", firstName:"Junya", lastName:"G", gender:"Female", salary:1500000 }, { _id:"106", firstName:"Murali Mohan", lastName:"R", gender:"Male", salary:1400000 } ] ) ;
+{ acknowledged: true, insertedIds: { '0': '105', '1': '106' } }
+srmrmp> db.employees.find()
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({gender:"Female"})
+[
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  }
+]
+srmrmp> db.employees.findOne({gender:"Female"})
+{
+  _id: '102',
+  firstName: 'Karishma',
+  lastName: 'P',
+  gender: 'Female',
+  salary: 1300000
+}
+srmrmp> db.employees.findOne()
+{
+  _id: ObjectId('66973ee4af68937114cdcdf7'),
+  firstName: 'Naveen',
+  lastName: 'T',
+  gender: 'Male',
+  salary: 1200000
+}
+srmrmp> db.employees.findMany()
+TypeError: db.employees.findMany is not a function
+srmrmp> db.employees.find()
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({gender:"Male"})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({gender:"Male"}, {firstName:1,lastName:1,salary:1})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    salary: 1200000
+  },
+  { _id: '104', firstName: 'Lokesh', lastName: 'M', salary: 1400000 },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({gender:"Male"}, {_id:0,firstName:1,lastName:1,salary:1})
+[
+  { firstName: 'Naveen', lastName: 'T', salary: 1200000 },
+  { firstName: 'Lokesh', lastName: 'M', salary: 1400000 },
+  { firstName: 'Murali Mohan', lastName: 'R', salary: 1400000 }
+]
+srmrmp> db.employees.find().limit(2)
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  }
+]
+srmrmp> db.employees.find().skip(2)
+[
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({},{_id:0, firstName:1, lastName:1,salary:1})
+[
+  { firstName: 'Naveen', lastName: 'T', salary: 1200000 },
+  { firstName: 'Karishma', lastName: 'P', salary: 1300000 },
+  { firstName: 'Keerthana', lastName: 'U', salary: 1300000 },
+  { firstName: 'Lokesh', lastName: 'M', salary: 1400000 },
+  { firstName: 'Junya', lastName: 'G', salary: 1500000 },
+  { firstName: 'Murali Mohan', lastName: 'R', salary: 1400000 }
+]
+srmrmp> db.employees.find({},{_id:0, firstName:1, lastName:1,salary:1}).sort({})
+[
+  { firstName: 'Naveen', lastName: 'T', salary: 1200000 },
+  { firstName: 'Karishma', lastName: 'P', salary: 1300000 },
+  { firstName: 'Keerthana', lastName: 'U', salary: 1300000 },
+  { firstName: 'Lokesh', lastName: 'M', salary: 1400000 },
+  { firstName: 'Junya', lastName: 'G', salary: 1500000 },
+  { firstName: 'Murali Mohan', lastName: 'R', salary: 1400000 }
+]
+srmrmp> db.employees.find({},{_id:0, firstName:1, lastName:1,salary:1}).sort({firstName:1})
+[
+  { firstName: 'Junya', lastName: 'G', salary: 1500000 },
+  { firstName: 'Karishma', lastName: 'P', salary: 1300000 },
+  { firstName: 'Keerthana', lastName: 'U', salary: 1300000 },
+  { firstName: 'Lokesh', lastName: 'M', salary: 1400000 },
+  { firstName: 'Murali Mohan', lastName: 'R', salary: 1400000 },
+  { firstName: 'Naveen', lastName: 'T', salary: 1200000 }
+]
+srmrmp> db.employees.find({},{_id:0, firstName:1, lastName:1,salary:1}).sort({firstName:-1})
+[
+  { firstName: 'Naveen', lastName: 'T', salary: 1200000 },
+  { firstName: 'Murali Mohan', lastName: 'R', salary: 1400000 },
+  { firstName: 'Lokesh', lastName: 'M', salary: 1400000 },
+  { firstName: 'Keerthana', lastName: 'U', salary: 1300000 },
+  { firstName: 'Karishma', lastName: 'P', salary: 1300000 },
+  { firstName: 'Junya', lastName: 'G', salary: 1500000 }
+]
+srmrmp> db.employees.find({},{_id:0, firstName:1, lastName:1,salary:1}).sort({salary:-1})
+[
+  { firstName: 'Junya', lastName: 'G', salary: 1500000 },
+  { firstName: 'Lokesh', lastName: 'M', salary: 1400000 },
+  { firstName: 'Murali Mohan', lastName: 'R', salary: 1400000 },
+  { firstName: 'Karishma', lastName: 'P', salary: 1300000 },
+  { firstName: 'Keerthana', lastName: 'U', salary: 1300000 },
+  { firstName: 'Naveen', lastName: 'T', salary: 1200000 }
+]
+srmrmp> db.employees.find({},{_id:0, firstName:1, lastName:1,salary:1}).sort({salary:-1, firstName:-1})
+[
+  { firstName: 'Junya', lastName: 'G', salary: 1500000 },
+  { firstName: 'Murali Mohan', lastName: 'R', salary: 1400000 },
+  { firstName: 'Lokesh', lastName: 'M', salary: 1400000 },
+  { firstName: 'Keerthana', lastName: 'U', salary: 1300000 },
+  { firstName: 'Karishma', lastName: 'P', salary: 1300000 },
+  { firstName: 'Naveen', lastName: 'T', salary: 1200000 }
+]
+srmrmp> db.employees.find({},{_id:0, firstName:1, lastName:1,salary:1}).sort({salary:-1, firstName:-1}).skip(2)
+[
+  { firstName: 'Lokesh', lastName: 'M', salary: 1400000 },
+  { firstName: 'Keerthana', lastName: 'U', salary: 1300000 },
+  { firstName: 'Karishma', lastName: 'P', salary: 1300000 },
+  { firstName: 'Naveen', lastName: 'T', salary: 1200000 }
+]
+srmrmp> db.employees.find({},{_id:0, firstName:1, lastName:1,salary:1}).sort({salary:-1, firstName:-1}).limit(2)
+[
+  { firstName: 'Junya', lastName: 'G', salary: 1500000 },
+  { firstName: 'Murali Mohan', lastName: 'R', salary: 1400000 }
+]
+srmrmp> db.employees.find({salary:1300000})
+[
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  }
+]
+srmrmp> db.employees.find({})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({"address.city":"Bangalore"})
+[
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  }
+]
+srmrmp> db.employees.find({address.city:"Bangalore"})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:26)
+
+> 1 | db.employees.find({address.city:"Bangalore"})
+    |                           ^
+  2 |
+
+srmrmp> db.employees.find({salary : {$eq:1300000}})
+[
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  }
+]
+srmrmp> db.employees.find({salary : {$gt:1300000}})
+[
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({salary:{$gte:1300000}})
+[
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({salary:{$in:[1200000,1500000]}})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  }
+]
+srmrmp> db.employees.find({salary:{$nin:[1200000,1500000]}})
+[
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({$and: [{gender:"Male"},{salary:{$gte:1300000}}]})
+[
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({$and: [{gender:"Male"},{salary:{$lte:1300000}}]})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  }
+]
+srmrmp> db.employees.find({$not:{{$and: [{gender:"Male"},{salary:{$lte:1300000}}]}}})
+Uncaught:
+SyntaxError: Unexpected token (1:25)
+
+> 1 | db.employees.find({$not:{{$and: [{gender:"Male"},{salary:{$lte:1300000}}]}}})
+    |                          ^
+  2 |
+
+srmrmp> db.employees.find({$not:{$and: [{gender:"Male"},{salary:{$lte:1300000}}]}})
+MongoServerError[BadValue]: unknown top level operator: $not. If you are trying to negate an entire expression, use $nor.
+srmrmp> db.employees.find({$nor:{$and: [{gender:"Male"},{salary:{$lte:1300000}}]}})
+MongoServerError[BadValue]: $nor must be an array
+srmrmp> db.employees.find({$or:[{gender:"Female"}, {salary:{$gte:1400000}}]})
+[
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({$not:{$or:[{gender:"Female"}, {salary:{$gte:1400000}}]}})
+MongoServerError[BadValue]: unknown top level operator: $not. If you are trying to negate an entire expression, use $nor.
+srmrmp> db.employees.find({$nor:[{gender:"Female"}, {salary:{$gte:1400000}}]})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  }
+]
+srmrmp> db.employees.find({$nor:[{gender:"Female"}, {salary:{$gt:1400000}}]})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({city:{$exists:true,$in:["Chennai", "Bangalore"]}})
+
+srmrmp> db.employees.find({city:{$exists:false,$in:["Chennai", "Bangalore"]}})
+
+srmrmp> db.employees.find({city:{$exists:true,$nin:["Chennai", "Bangalore"]}})
+
+srmrmp> db.employees.find({"address.city":{$exists:true,$in:["Chennai", "Bangalore"]}})
+[
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  }
+]
+srmrmp> db.employees.find({"address.city":{$exists:true}})
+[
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  }
+]
+srmrmp> db.employees.find({"address.contact":{$exists:true}})
+
+srmrmp> db.employees.find({contact:{$exists:true}})
+[
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  }
+]
+srmrmp> db.employees.find({contact:{$exists:false}})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({address:{$exists:false}})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.find({firstName:{$type:'string'}})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  }
+]
+srmrmp> db.employees.insertOne({
+... _id:"107",
+... firstName:"Gayathri",
+... lastName : "Choudhary"
+... gender:"Female",
+Uncaught:
+SyntaxError: Unexpected token, expected "," (5:0)
+
+  3 | firstName:"Gayathri",
+  4 | lastName : "Choudhary"
+> 5 | gender:"Female",
+    | ^
+  6 |
+
+srmrmp> db.employees.insertOne({ _id:"107", firstName:"Gayathri", lastName : "Choudhary", gender:"Female",
+... salary:1700000, contact:1234567})
+{ acknowledged: true, insertedId: '107' }
+srmrmp> db.employees.find({contact:{$exists:true}})
+[
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '107',
+    firstName: 'Gayathri',
+    lastName: 'Choudhary',
+    gender: 'Female',
+    salary: 1700000,
+    contact: 1234567
+  }
+]
+srmrmp> db.employees.find({contact:{$type:"array"}})
+[
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  }
+]
+srmrmp> db.employees.find({$not:{contact:{$type:"array"}}})
+MongoServerError[BadValue]: unknown top level operator: $not. If you are trying to negate an entire expression, use $nor.
+srmrmp> db.employees.find({$nor:[{contact:{$type:"array"}}]})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  },
+  {
+    _id: '107',
+    firstName: 'Gayathri',
+    lastName: 'Choudhary',
+    gender: 'Female',
+    salary: 1700000,
+    contact: 1234567
+  }
+]
+srmrmp> db.employees.find({$nor:[{contact:{$type:"array"}}]})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+
+srmrmp> db.collection.find()
+
+srmrmp> db.employees.find()
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1200000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1300000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1400000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  },
+  {
+    _id: '107',
+    firstName: 'Gayathri',
+    lastName: 'Choudhary',
+    gender: 'Female',
+    salary: 1700000,
+    contact: 1234567
+  }
+]
+srmrmp> db.employees.updateOne({},{})
+MongoInvalidArgumentError: Update document requires atomic operators
+srmrmp> db.employees.updateOne({},{}
+...
+srmrmp> db.employees.updateOne({},
+... {
+... $set:{
+... salary: salary - (salary * 10 / 100)
+... }
+... }
+... )
+ReferenceError: salary is not defined
+srmrmp> db.employees.updateOne({}, { $set: { salary: $salary - $salary * 10 / 100 } } )
+ReferenceError: $salary is not defined
+srmrmp> db.employees.updateOne({}, { $set: { salary: "salary" - "salary" * 10 / 100 } } )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+srmrmp> db.employees.findOne()
+{
+  _id: ObjectId('66973ee4af68937114cdcdf7'),
+  firstName: 'Naveen',
+  lastName: 'T',
+  gender: 'Male',
+  salary: NaN
+}
+srmrmp> db.employees.updateOne({}, { $set: { salary: {salary:} - {salary:} * 10 / 100 } } )
+Uncaught:
+SyntaxError: Unexpected token (1:53)
+
+> 1 | db.employees.updateOne({}, { $set: { salary: {salary:} - {salary:} * 10 / 100 } } )
+    |                                                      ^
+  2 |
+
+srmrmp> db.employees.updateOne({}, { $set: { salary: {salary} - {salary} * 10 / 100 } } )
+ReferenceError: salary is not defined
+srmrmp> db.employees.updateOne({}, { $set: { salary: "$salary" - "$salary" * 10 / 100 } } )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+srmrmp> db.employees.findOne()
+{
+  _id: ObjectId('66973ee4af68937114cdcdf7'),
+  firstName: 'Naveen',
+  lastName: 'T',
+  gender: 'Male',
+  salary: NaN
+}
+srmrmp> db.employees.updateOne({}, {$set:{salary:1500000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+srmrmp> db.employees.findOne()
+{
+  _id: ObjectId('66973ee4af68937114cdcdf7'),
+  firstName: 'Naveen',
+  lastName: 'T',
+  gender: 'Male',
+  salary: 1500000
+}
+srmrmp> db.employees.findOne()
+{
+  _id: ObjectId('66973ee4af68937114cdcdf7'),
+  firstName: 'Naveen',
+  lastName: 'T',
+  gender: 'Male',
+  salary: 1500000
+}
+srmrmp> db.employees.updateOne({}, { $set: { salary: "$salary" - "$salary" * 10 / 100 } } )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+srmrmp> db.employees.findOne()
+{
+  _id: ObjectId('66973ee4af68937114cdcdf7'),
+  firstName: 'Naveen',
+  lastName: 'T',
+  gender: 'Male',
+  salary: NaN
+}
+srmrmp> db.employees.findOne()
+{
+  _id: ObjectId('66973ee4af68937114cdcdf7'),
+  firstName: 'Naveen',
+  lastName: 'T',
+  gender: 'Male',
+  salary: NaN
+}
+srmrmp> db.employees.updateOne({}, {$set:{salary:1500000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+srmrmp> db.employees.find({address:{$exists:false}})
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1500000
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1300000
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1500000
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1400000
+  },
+  {
+    _id: '107',
+    firstName: 'Gayathri',
+    lastName: 'Choudhary',
+    gender: 'Female',
+    salary: 1700000,
+    contact: 1234567
+  }
+]
+srmrmp> db.employees.updateOne({address:{$exists:false}}, {$set:{address:{street:"MG Road",city:"Bangalore"}}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+srmrmp> db.employees.findOne()
+{
+  _id: ObjectId('66973ee4af68937114cdcdf7'),
+  firstName: 'Naveen',
+  lastName: 'T',
+  gender: 'Male',
+  salary: 1500000,
+  address: { street: 'MG Road', city: 'Bangalore' }
+}
+srmrmp> db.employees.updateMany({address:{$exists:false}}, {$set:{address:{street:"MG Road",city:"Bangalore"}}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+srmrmp> db.employees.find({address:{$exists:false}})
+
+srmrmp> db.employees.updateOne({}, {salary:{$mul:0.8}})
+MongoInvalidArgumentError: Update document requires atomic operators
+srmrmp> db.employees.updateOne({firstName:"Naveen"}, {salary:{$mul:0.8}})
+MongoInvalidArgumentError: Update document requires atomic operators
+srmrmp> db.employees.updateOne({_id:"102"}, {salary:{$mul:0.8}})
+MongoInvalidArgumentError: Update document requires atomic operators
+srmrmp> db.employees.updateOne({_id:"102"}, {$mul:{salary:0.8}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+srmrmp> db.employees.find({_id:"102"})
+[
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1040000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  }
+]
+srmrmp> db.employees.updateMany({}, {$mul:{salary:0.8}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 7,
+  modifiedCount: 7,
+  upsertedCount: 0
+}
+srmrmp> db.employees.find({}, {_id:0, firstName:1, salary:1})
+[
+  { firstName: 'Naveen', salary: 1200000 },
+  { firstName: 'Karishma', salary: 832000 },
+  { firstName: 'Keerthana', salary: 1040000 },
+  { firstName: 'Lokesh', salary: 1120000 },
+  { firstName: 'Junya', salary: 1200000 },
+  { firstName: 'Murali Mohan', salary: 1120000 },
+  { firstName: 'Gayathri', salary: 1360000 }
+]
+srmrmp> db.employees.updateOne({_id:"102"}, {$mul:{salary:1.2}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+srmrmp> db.employees.find({}, {_id:0, firstName:1, salary:1})
+[
+  { firstName: 'Naveen', salary: 1200000 },
+  { firstName: 'Karishma', salary: 998400 },
+  { firstName: 'Keerthana', salary: 1040000 },
+  { firstName: 'Lokesh', salary: 1120000 },
+  { firstName: 'Junya', salary: 1200000 },
+  { firstName: 'Murali Mohan', salary: 1120000 },
+  { firstName: 'Gayathri', salary: 1360000 }
+]
+srmrmp> db.employees.updateMany({}, {$inc:{salary:50000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 7,
+  modifiedCount: 7,
+  upsertedCount: 0
+}
+srmrmp> db.employees.find({}, {_id:0, firstName:1, salary:1})
+[
+  { firstName: 'Naveen', salary: 1250000 },
+  { firstName: 'Karishma', salary: 1048400 },
+  { firstName: 'Keerthana', salary: 1090000 },
+  { firstName: 'Lokesh', salary: 1170000 },
+  { firstName: 'Junya', salary: 1250000 },
+  { firstName: 'Murali Mohan', salary: 1170000 },
+  { firstName: 'Gayathri', salary: 1410000 }
+]
+srmrmp> db.employees.updateMany({}, {$min:{salary:1200000})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:50)
+
+> 1 | db.employees.updateMany({}, {$min:{salary:1200000})
+    |                                                   ^
+  2 |
+
+srmrmp> db.employees.updateMany({}, {$min:{salary:1200000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 7,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+srmrmp> db.employees.find({}, {_id:0, firstName:1, salary:1})
+[
+  { firstName: 'Naveen', salary: 1200000 },
+  { firstName: 'Karishma', salary: 1048400 },
+  { firstName: 'Keerthana', salary: 1090000 },
+  { firstName: 'Lokesh', salary: 1170000 },
+  { firstName: 'Junya', salary: 1200000 },
+  { firstName: 'Murali Mohan', salary: 1170000 },
+  { firstName: 'Gayathri', salary: 1200000 }
+]
+srmrmp> db.employees.updateMany({salary:1200000}, {$inc:{salary:700000}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 3,
+  modifiedCount: 3,
+  upsertedCount: 0
+}
+srmrmp> db.employees.updateMany({}, {$max:{salary:1500000}}
+... )
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 7,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+srmrmp> db.employees.find()
+[
+  {
+    _id: ObjectId('66973ee4af68937114cdcdf7'),
+    firstName: 'Naveen',
+    lastName: 'T',
+    gender: 'Male',
+    salary: 1900000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1500000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1500000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1500000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1900000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1500000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '107',
+    firstName: 'Gayathri',
+    lastName: 'Choudhary',
+    gender: 'Female',
+    salary: 1900000,
+    contact: 1234567,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  }
+]
+srmrmp> db.employees.find({}, {_id:0, firstName:1, salary:1})
+[
+  { firstName: 'Naveen', salary: 1900000 },
+  { firstName: 'Karishma', salary: 1500000 },
+  { firstName: 'Keerthana', salary: 1500000 },
+  { firstName: 'Lokesh', salary: 1500000 },
+  { firstName: 'Junya', salary: 1900000 },
+  { firstName: 'Murali Mohan', salary: 1500000 },
+  { firstName: 'Gayathri', salary: 1900000 }
+]
+srmrmp> db.employees.find({contacts:{$exists:true}}
+... )
+
+srmrmp> db.employees.find({ contact: { $exists: true } } )
+[
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1500000,
+    address: { street: 'MG Road', city: 'Bangalore' },
+    contact: [ 1234, 4567, 75434 ]
+  },
+  {
+    _id: '107',
+    firstName: 'Gayathri',
+    lastName: 'Choudhary',
+    gender: 'Female',
+    salary: 1900000,
+    contact: 1234567,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  }
+]
+srmrmp> db.employees.updateMany({contact:{$exists:true}}, {$unset:{contact:""}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+srmrmp> db.employees.find({ contact: { $exists: true } } )
+
+srmrmp> db.employees.deleteOne({})
+{ acknowledged: true, deletedCount: 1 }
+srmrmp> db.employees.find()
+[
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1500000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1500000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1500000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1900000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '106',
+
+srmrmp> db.employees.aggregate(
+... [
+... {},
+... {
+... $group:{_id:null, totalSalary:{$sum:"$salary"}}
+... }
+... ]
+... )
+MongoServerError[Location40323]: A pipeline stage specification object must contain exactly one field.
+srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $sum: "$salary" } } }] )
+[ { _id: null, totalSalary: 9800000 } ]
+srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $avg: "$salary" } } }] )
+[ { _id: null, totalSalary: 1633333.3333333333 } ]
+srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $max: "$salary" } } }] )
+[ { _id: null, totalSalary: 1900000 } ]
+srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $min: "$salary" } } }] )
+[ { _id: null, totalSalary: 1500000 } ]
+srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $count: "$salary" } } }] )
+MongoServerError[TypeMismatch]: $count takes no arguments, i.e. $count:{}
+srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalSalary: { $count: {} } } }] )
+[ { _id: null, totalSalary: 6 } ]
+srmrmp> db.employees.aggregate( [ { $group: { _id: null, totalEmployees: { $count: {} } } }] )
+[ { _id: null, totalEmployees: 6 } ]
+srmrmp> db.employees.aggregate([{$group:{_id:"$gender", totalSalary:{$sum:"$salary"}}}])
+[
+  { _id: 'Female', totalSalary: 6800000 },
+  { _id: 'Male', totalSalary: 3000000 }
+]
+srmrmp> db.employees.aggregate([{$group:{_id:"$gender",genderCount:{$count:{}}}}])
+[ { _id: 'Female', genderCount: 4 }, { _id: 'Male', genderCount: 2 } ]
+srmrmp> db.employees.aggregate([{$group:{$_id:"$salary", salaryCount:{$count:{}}}}])
+MongoServerError[Location40234]: The field '$_id' must be an accumulator object
+srmrmp> db.employees.aggregate([{$group:{_id:"$salary", salaryCount:{$count:{}}}}])
+[ { _id: 1900000, salaryCount: 2 }, { _id: 1500000, salaryCount: 4 } ]
+srmrmp> db.employees.find();
+[
+  {
+    _id: '102',
+    firstName: 'Karishma',
+    lastName: 'P',
+    gender: 'Female',
+    salary: 1500000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '103',
+    firstName: 'Keerthana',
+    lastName: 'U',
+    gender: 'Female',
+    salary: 1500000,
+    address: { street: 'GST Road', city: 'Chennai' }
+  },
+  {
+    _id: '104',
+    firstName: 'Lokesh',
+    lastName: 'M',
+    gender: 'Male',
+    salary: 1500000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '105',
+    firstName: 'Junya',
+    lastName: 'G',
+    gender: 'Female',
+    salary: 1900000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '106',
+    firstName: 'Murali Mohan',
+    lastName: 'R',
+    gender: 'Male',
+    salary: 1500000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  },
+  {
+    _id: '107',
+    firstName: 'Gayathri',
+    lastName: 'Choudhary',
+    gender: 'Female',
+    salary: 1900000,
+    address: { street: 'MG Road', city: 'Bangalore' }
+  }
+]
+srmrmp> db.employees.aggregate(
+... [
+... {$match:{gender:"Female"}},
+... {$group:{_id:"$salary", salaryCount:{$count:{}}}}
+... ])
+[ { _id: 1500000, salaryCount: 2 }, { _id: 1900000, salaryCount: 2 } ]
+srmrmp> db.employees.aggregate(
+... [
+... {$match:{salary:{$gt:1500000}}},
+... {$group:{_id:null,salaryCount:{$count:{}}}}
+... ])
+[ { _id: null, salaryCount: 2 } ]
+srmrmp> db.employees.aggregate(
+... [
+... {$group:{_id:"$address.city", cityCount:{$count:{}}}}
+... ])
+[
+  { _id: 'Bangalore', cityCount: 5 },
+  { _id: 'Chennai', cityCount: 1 }
+]
+srmrmp> db.employees.insertOne({firstName:"Mercy", lastName:"A", gender:"Female", salary:1700000})
+{
+  acknowledged: true,
+  insertedId: ObjectId('669794deaf68937114cdcdf8')
+}
+srmrmp> db.employees.aggregate( [ { $group: { _id: "$address.city", cityCount: { $count: {} } } }] )
+[
+  { _id: 'Chennai', cityCount: 1 },
+  { _id: null, cityCount: 1 },
+  { _id: 'Bangalore', cityCount: 5 }
+]
+srmrmp> db.employees.aggregate( [{$match:{"address.city":{$exists:true}}}, { $group: { _id: "$address.city", cityCount: { $count: {} } } }] )
+[
+  { _id: 'Chennai', cityCount: 1 },
+  { _id: 'Bangalore', cityCount: 5 }
+]
+srmrmp>
